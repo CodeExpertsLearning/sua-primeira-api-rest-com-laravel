@@ -28,7 +28,7 @@ class ProductController extends Controller
     {
     	$product = $this->product->find($id);
 
-    	if(! $product) return response()->json(['data' => ['msg' => 'Produto não encontrado!']], 404);
+    	if(! $product) return response()->json(ApiError::errorMessage('Produto não encontrado!', 4040), 404);
 
     	$data = ['data' => $product];
 	    return response()->json($data);
@@ -46,9 +46,9 @@ class ProductController extends Controller
 
 		} catch (\Exception $e) {
 			if(config('app.debug')) {
-				return response()->json(ApiError::errorMessage($e->getMessage(), 1010));
+				return response()->json(ApiError::errorMessage($e->getMessage(), 1010), 500);
 			}
-			return response()->json(ApiError::errorMessage('Houve um erro ao realizar operação de salvar', 1010));
+			return response()->json(ApiError::errorMessage('Houve um erro ao realizar operação de salvar', 1010),  500);
 		}
     }
 
@@ -65,9 +65,9 @@ class ProductController extends Controller
 
 		} catch (\Exception $e) {
 			if(config('app.debug')) {
-				return response()->json(ApiError::errorMessage($e->getMessage(), 1011));
+				return response()->json(ApiError::errorMessage($e->getMessage(), 1011),  500);
 			}
-			return response()->json(ApiError::errorMessage('Houve um erro ao realizar operação de atualizar', 1011));
+			return response()->json(ApiError::errorMessage('Houve um erro ao realizar operação de atualizar', 1011), 500);
 		}
 	}
 
@@ -80,9 +80,9 @@ class ProductController extends Controller
 
 		}catch (\Exception $e) {
 			if(config('app.debug')) {
-				return response()->json(ApiError::errorMessage($e->getMessage(), 1012));
+				return response()->json(ApiError::errorMessage($e->getMessage(), 1012),  500);
 			}
-			return response()->json(ApiError::errorMessage('Houve um erro ao realizar operação de remover', 1012));
+			return response()->json(ApiError::errorMessage('Houve um erro ao realizar operação de remover', 1012),  500);
 		}
 	}
 }
